@@ -25,5 +25,22 @@ if [[ $? == 0 ]]; then
     git clone https://github.com/tomaspinho/rtl8821ce.git
     cd rtl8821ce
     ./dkms-install.sh
-    echo $PCI_NAME " drivers installed in rtl8821ce directory, you are free to delete it."
+    if [ $? != 0 ]; then
+        echo "Script failed, you might need to reboot and start it again"
+    else
+        echo $PCI_NAME " drivers installed in rtl8821ce directory, you are free to delete it."
+    fi
+fi
+
+if [ -f /etc/os-release ]; then
+    # freedesktop.org and systemd
+    . /etc/os-release
+    OS=$NAME
+    VER=$VERSION_ID
+    if [ $OS != "Fedora" ]; then
+        echo "This script should be run only on Fedora"
+    elif [ $VER -gt "32" ];then
+        echo "Downgrading WPA2-Entreprise Wi-FI policies to LEGACY ..."
+        sudo update-crypto-policies --set LEGACY
+    fi
 fi
