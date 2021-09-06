@@ -19,9 +19,9 @@ lspci | grep $PCI_NAME &> /dev/null
 if [[ $? == 0 ]]; then
     echo $PCI_NAME " adapter found, installing drivers ..."
     echo "Updating Kernel ..."
-    dnf install kernel "kernel-*"
-    dnf upgrade kernel "kernel-*"
-    dnf install dkms
+    dnf install -y kernel "kernel-*"
+    dnf upgrade -y kernel "kernel-*"
+    dnf install -y dkms
     git clone https://github.com/tomaspinho/rtl8821ce.git
     cd rtl8821ce
     ./dkms-install.sh
