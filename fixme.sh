@@ -10,7 +10,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 if [[ $1 -eq "upgrade" ]]; then
-dnf upgrade -y
+   dnf upgrade -y
 fi
 
 # RTL8821CE Wi-Fi issue
